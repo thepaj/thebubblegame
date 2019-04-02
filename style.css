@@ -1,0 +1,41 @@
+/*
+html,
+body {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	margin-left: 350px;
+	margin-top: 100px;
+
+}
+*/
+
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	margin-left: 300px;
+	margin-top: 100px;
+}
+
+canvas {
+	display: block;
+	position: absolute;
+}
+
+#btn {
+	position: relative;
+	text-decoration: none;
+	font-family: 'Freckle Face', cursive;
+	font-size: 25px;
+	display: inline-block;
+	border: none;
+	border-radius: 100px;
+	color: #fff;
+	background-color: #3a9679;
+	margin-left: 215px;
+	margin-bottom: 30px;
+	padding: 15px 40px;
+}
