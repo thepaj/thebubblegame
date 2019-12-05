@@ -9,8 +9,13 @@ let bubbleSpeed;
 let pop;
 let timer;
 let timeCounter;
+let timeCountingStart = 10;
 let gameplaying;
 let isGameOver;
+
+let database;
+let submitButton;
+let nameInput;
 
 function preload() {
 	myFont = loadFont('font2.ttf');
@@ -19,6 +24,11 @@ function preload() {
 
 function setup() {
 	createCanvas(600, 400);
+
+	submitButton = select('#btnSubmit');
+	submitButton.mousePressed(submitScore);
+	nameInput = select('#nameInput');
+
 	newGameBtn = select('#btn');
 	setInterval(timeUp, 1000);
 
@@ -26,7 +36,63 @@ function setup() {
 		newGameBtn.mousePressed(newGame);
 	}
 
+	// Your web app's Firebase configuration
+	let config = {
+		apiKey: "AIzaSyBs7_R_L5JHy1zDt8vCno1-W7u8Ecra2bs",
+		authDomain: "the-bubble-game-b87a4.firebaseapp.com",
+		databaseURL: "https://the-bubble-game-b87a4.firebaseio.com",
+		projectId: "the-bubble-game-b87a4",
+		storageBucket: "the-bubble-game-b87a4.appspot.com",
+		messagingSenderId: "741272445239",
+		appId: "1:741272445239:web:cb485054595751e5e6fab2",
+		measurementId: "G-1HX862FVX7"
+	};
+	// Initialize Firebase
 
+	firebase.initializeApp(config);
+	database = firebase.database();
+
+	let ref = database.ref('scores');
+	ref.on('value', gotData, errData);
+
+}
+
+function gotData(data) {
+	let scorelistings = selectAll('.scorelisting');
+	for (let i = 0; i < scorelistings.length; i++) {
+		scorelistings[i].remove();
+	}
+
+	//console.log(data.val());
+	let scores = data.val();
+	let keys = Object.keys(scores);
+	//console.log(keys);
+	for (let j = 0; j < keys.length; j++) {
+		let k = keys[j];
+		let name = scores[k].name;
+		let score = scores[k].score;
+		//console.log(name, score);
+		let li = createElement('li', name + ': ' + score);
+		li.class('scorelisting');
+		li.parent('scorelist');
+	}
+}
+
+function errData(err) {
+	console.log('Error!');
+	console.log(err);
+}
+
+function submitScore() {
+
+	let data = {
+		name: nameInput.value(),
+		score: levelNumber
+	}
+	console.log(data);
+	let ref = database.ref('scores');
+
+	ref.push(data);
 }
 
 function timeUp() {
@@ -34,8 +100,6 @@ function timeUp() {
 	if (timeCounter > 0) {
 		timeCounter--;
 	}
-
-	console.log('timeup cALLED');
 }
 
 function timerOnScreen() {
@@ -58,9 +122,8 @@ function newGame() {
 	firstScreenText = '';
 	name = '';
 	levelNumber = 1;
-	timeCounter = 2;
+	timeCounter = timeCountingStart;
 
-	//bubbles.speed = 2;
 	createBubbles();
 }
 
@@ -106,6 +169,7 @@ function startGame() {
 		//		levelCounter();
 		//		timerOnScreen();
 
+		bubbles[i].speed = 2;
 		bubbles[i].show();
 		bubbles[i].move();
 		bubbles[i].bounce();
@@ -143,9 +207,10 @@ function mousePressed() {
 // + faster
 function nextlevel() {
 	levelNumber++;
-	timeCounter = 2;
+	timeCounter = timeCountingStart;
 	createBubbles();
-	//bubbles[i].speed = bubbles[i].speed + 10;
+	bubbles[i].speed = bubbles[i].speed * 2;
+
 }
 
 
