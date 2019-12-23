@@ -18,6 +18,7 @@ body {
 	box-sizing: border-box;
 	margin-left: 300px;
 	margin-top: 100px;
+	font-family: 'Freckle Face', cursive;
 }
 
 canvas {
@@ -25,8 +26,18 @@ canvas {
 	position: absolute;
 }
 
+#row {
+	margin-bottom: 10px;
+}
+
+.column {
+  float: left;
+  width: 50%;
+}
+
 #btn {
 	position: relative;
+	margin-bottom: 50px;
 	text-decoration: none;
 	font-family: 'Freckle Face', cursive;
 	font-size: 25px;
@@ -35,7 +46,17 @@ canvas {
 	border-radius: 100px;
 	color: #fff;
 	background-color: #3a9679;
-	margin-left: 215px;
-	margin-bottom: 30px;
+	margin-left: 400px;
 	padding: 15px 40px;
+}
+
+#btnSubmit {
+	text-decoration: none;
+	font-family: 'Freckle Face', cursive;
+	display: inline-block;
+	border: none;
+	border-radius: 100px;
+	color: #fff;
+	background-color: black;
+
 }
