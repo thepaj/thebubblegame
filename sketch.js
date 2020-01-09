@@ -1,23 +1,22 @@
-let bubbles = [];
-let levelNumber;
-
-//preload variables
+//preload 
 let myFont;
 let bubbleClickSound;
 
-// setup variables
+// setup 
 let nameInput;
 
-//todo for making them bubbbles go faster with each level
-let bubbleSpeed;
-
+// must-be-global 
+let bubbles = [];
+let levelNumber;
 let timeCounter;
 const timeCountingStart = 2;
 let nameText = '';
 let nameArray = [];
 
+// database 
 let database;
 
+// state 
 let isGamePlaying;
 let isGameOver;
 let newGameStarted = false;
@@ -42,8 +41,9 @@ function setup() {
 	}
 
 	// Your web app's Firebase configuration
+	const myApiKey = "AIzaSyBs7_R_L5JHy1zDt8vCno1-W7u8Ecra2bs";
 	let config = {
-		apiKey: "myApiKey",
+		apiKey: myApiKey,
 		authDomain: "the-bubble-game-b87a4.firebaseapp.com",
 		databaseURL: "https://the-bubble-game-b87a4.firebaseio.com",
 		projectId: "the-bubble-game-b87a4",
@@ -86,10 +86,21 @@ function submitScore() {
 	let data = {
 		name: nameText,
 		score: levelNumber
-	}
-	let ref = database.ref('scores');
+	};
 
-	ref.push(data);
+	let query = database.ref('scores').orderByChild('name').equalTo(data.name);
+
+	query.once('value', (existingScoresSnapshot) => {
+		const existingScores = existingScoresSnapshot.val();
+		if (existingScores) {
+			let keys = Object.keys(existingScores);
+			if (existingScores[keys[0]].score < data.score) {
+				database.ref("scores/" + keys[0]).update({ score: data.score });
+			}
+		} else {
+			database.ref('scores').push(data);
+		}
+	});
 }
 
 // name 
@@ -141,6 +152,8 @@ function firstScreen() {
 	textSize(20);
 	const author = 'by thepaj';
 	text(author, 435, 230);
+
+	nameOnscreen();
 }
 
 // time
