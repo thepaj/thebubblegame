@@ -9,7 +9,7 @@ let nameInput;
 let bubbles = [];
 let levelNumber;
 let timeCounter;
-const timeCountingStart = 2;
+const timeCountingStart = 10;
 let nameText = '';
 let nameArray = [];
 
