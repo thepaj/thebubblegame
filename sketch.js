@@ -31,7 +31,7 @@ function setup() {
 
 	const submitButton = select('#btnSubmit');
 	submitButton.mousePressed(updateName);
-	nameInput = select('#nameInput');
+	nameInput = select('#name-input');
 
 	const newGameBtn = select('#btn');
 	setInterval(timeUp, 1000);
@@ -104,6 +104,13 @@ function submitScore() {
 }
 
 // name 
+function keyPressed(event) {
+	if(keyCode === 13) {
+		event.preventDefault();
+		updateName();
+	}
+}
+
 function updateName() {
 	nameText = nameInput.value();
 }

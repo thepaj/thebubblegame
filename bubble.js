@@ -25,10 +25,6 @@ class Bubble {
 		this.x = this.x + random(-this.speed, this.speed);
 		this.y = this.y + random(-this.speed, this.speed);
 	}
-	//	secondMove() {
-	//		this.x = this.x + random(-10, 10);
-	//		this.y = this.y + random(-10, 10);
-	//	}
 	rollover(x, y) {
 		var d = dist(x, y, this.x, this.y);
 		if (d < this.r / 2) {

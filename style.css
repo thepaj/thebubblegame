@@ -7,43 +7,75 @@
 body {
 	font-family: 'Freckle Face', cursive;
 	display: flex;
-	flex-direction: column;
-	justify-content: center;
 	align-items: center;
+	justify-content: center;
 }
 
 canvas {
 	display: block;
+	position: absolute;
+	margin-top: 100px;
 }
 
-.row {
+.container {
+	position: relative;
 	display: flex;
-	flex-direction: row;
 	justify-content: flex-start;
-	align-items: baseline;
+	align-items: flex-start;
+	margin-top: 100px;
+	border-radius: 10px;
+	width: 650px;
+	height: 550px;
+	background-color: #fabc60;
+	box-shadow: 0 10px 20px rgba(0,0,0,.5);
 }
 
 .column {
-	padding: 30px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	z-index: 1;
+	margin-left: 25px;
+	margin-top: 25px;
+	font-family: 'Montserrat', sans-serif;
+	color: white;
 }
 
 #btn {
 	padding: 10px;
+	width: 600px;
+	margin-top: 10px;
 	background-color: #3a9679;
 	color: #fff;
 	text-decoration: none;
-	font-family: 'Freckle Face', cursive;
-	font-size: 25px;
+	font-size: 20px;
+	text-transform: uppercase;
 	border: none;
-	border-radius: 100px;
+	cursor: pointer;
+}
+
+#btn:hover {
+	font-weight: bold;
+}
+
+#name-input {
+	height: 40px;
+	width: 490px;
 }
 
 #btnSubmit {
 	padding: 5px;
+	width: 105px;
+	height: 40px;
 	color: #fff;
 	background-color: black;
 	text-decoration: none;
-	font-family: 'Freckle Face', cursive;
+	text-transform: uppercase;
 	border: none;
-	border-radius: 100px;
+	cursor: pointer;
+}
+
+#btnSubmit:hover {
+	font-weight: bold;
 }
