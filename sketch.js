@@ -20,6 +20,7 @@ let database;
 let isGamePlaying;
 let isGameOver;
 let newGameStarted = false;
+let leaderboardPressed = false;
 
 function preload() {
 	myFont = loadFont('font2.ttf');
@@ -33,10 +34,16 @@ function setup() {
 	submitButton.mousePressed(updateName);
 	nameInput = select('#name-input');
 
+	const leaderboardBtn = select('#btn-leaderboard');
+	leaderboardBtn.mousePressed(() => {
+		leaderboardPressed = true;
+	});
+
 	const newGameBtn = select('#btn');
 	setInterval(timeUp, 1000);
 
 	if (bubbles.length === 0) {
+		leaderboardPressed = false;
 		newGameBtn.mousePressed(newGame);
 	}
 
@@ -123,8 +130,13 @@ function nameOnscreen() {
 
 function draw() {
 	background(0);
+
 	if (!newGameStarted) {
 		firstScreen();
+	}
+
+	if(leaderboardPressed) {
+		leaderboardScreen();
 	}
 
 	if (isGamePlaying) {
@@ -149,18 +161,25 @@ function draw() {
 
 // first screen
 function firstScreen() {
-	fill('#fabc60');
-	textFont(myFont);
-	textSize(60);
-	const title = 'The bubble game';
-	text(title, 80, 200);
+	if (!leaderboardPressed) {
+		fill('#fabc60');
+		textFont(myFont);
+		textSize(60);
+		const title = 'The bubble game';
+		text(title, 80, 150);
 
-	fill('#3a9679');
-	textSize(20);
-	const author = 'by thepaj';
-	text(author, 435, 230);
+		fill('#3a9679');
+		textSize(20);
+		const author = 'by paja jureckova';
+		text(author, 365, 190);
 
-	nameOnscreen();
+		fill('#f9f9f9');
+		textSize(20);
+		const rules = 'Click on a bubble to make it disappear. \n Make sure all the bubbles are gone \n before the time runs out.';
+		text(rules, 80, 250);
+
+		nameOnscreen();
+	}
 }
 
 // time
@@ -182,6 +201,7 @@ function newGame() {
 	newGameStarted = true;
 	isGamePlaying = true;
 	isGameOver = false;
+	leaderboardPressed = false;
 
 	// destroy if remaining bubbles
 	if (bubbles.length > 0) {
@@ -255,6 +275,22 @@ function gameOverScreen() {
 		fill('#fff');
 		textSize(size);
 		text(nameArray[i], 120, yDir);
+	}
+}
+
+function leaderboardScreen() {
+	if(!isGamePlaying) {
+		leaderboardPressed = true;
+		fill(255, 0, 0);
+		textFont(myFont);
+		textSize(60);
+		for (let i = 0; i < nameArray.length; i++) {
+			let size = 15;
+			let yDir = 200 + size * i;
+			fill('#fff');
+			textSize(size);
+			text(nameArray[i], 120, yDir);
+		}
 	}
 }
 
