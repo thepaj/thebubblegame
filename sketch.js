@@ -281,6 +281,11 @@ function gameOverScreen() {
 function leaderboardScreen() {
 	if(!isGamePlaying) {
 		leaderboardPressed = true;
+		let leaderboardText = 'Leaderboard'
+		fill('#3a9679');
+		textFont(myFont);
+		textSize(60);
+		text(leaderboardText, 120, 150);
 		fill(255, 0, 0);
 		textFont(myFont);
 		textSize(60);

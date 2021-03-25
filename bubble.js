@@ -1,9 +1,9 @@
 // the bubble object
 class Bubble {
 	constructor() {
-		this.x = random(10, width - 10);
-		this.y = random(10, height - 10);
 		this.r = random(40, 50);
+		this.x = random(this.r, width - this.r);
+		this.y = random(this.r, height - this.r);
 		this.rcolor = random(255);
 		this.bcolor = random(255);
 		this.gcolor = random(255);
@@ -14,10 +14,10 @@ class Bubble {
 		ellipse(this.x, this.y, this.r, this.r)
 	}
 	bounce() {
-		if (this.x < 40 || this.x > width - 40) {
+		if (this.x < this.r || this.x > width - this.r) {
 			this.speed = this.speed * -1;
 		}
-		if (this.y < 40 || this.y > height - 40) {
+		if (this.y < this.r || this.y > height - this.r) {
 			this.speed = this.speed * -1;
 		}
 	}
