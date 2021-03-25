@@ -74,14 +74,25 @@ function gotData(data) {
 	let keys = Object.keys(scores);
 
 	nameArray.splice(0, nameArray.length);
+	let namesWithScore = [];
 
 	for (let j = 0; j < keys.length; j++) {
 		let k = keys[j];
 		let name = scores[k].name;
 		let score = scores[k].score;
-		let scoreText = name + ': ' + score + ' points';
+		namesWithScore.push({
+			'name': name,
+			'score': score
+		})
+	}
+
+	namesWithScore.sort( (a, b) => {return b.score - a.score; });
+	
+	for (let i = 0; i < namesWithScore.length; i++) {
+		let scoreText = namesWithScore[i].name + ': ' + namesWithScore[i].score + ' points';
 		nameArray.push(scoreText);
 	}
+
 }
 
 function errData(err) {
