@@ -1,6 +1,11 @@
 # thebubblegame
 
-A web game build in P5.js.
+A web game build with P5.js.
+The player has to click on bubbles to make them disapper before the time
+runs out. While the levels are progressing more bubbles are appearing
+and they are moving faster.
+
+Leaderboard feature is also implemented using firebase storage.
 
 ## Overview
 
