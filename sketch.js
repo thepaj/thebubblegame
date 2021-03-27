@@ -17,9 +17,9 @@ let nameArray = [];
 let database;
 
 // state 
-let isGamePlaying;
-let isGameOver;
-let newGameStarted = false;
+let isGamePlaying = false;
+let isGameOver = false;
+let showTitleScreen = true;
 let leaderboardPressed = false;
 
 function preload() {
@@ -36,14 +36,17 @@ function setup() {
 
 	const leaderboardBtn = select('#btn-leaderboard');
 	leaderboardBtn.mousePressed(() => {
-		leaderboardPressed = true;
+		if(showTitleScreen)
+		{
+			leaderboardPressed = true;
+			showTitleScreen = false;
+		}
 	});
 
 	const newGameBtn = select('#btn');
 	setInterval(timeUp, 1000);
 
 	if (bubbles.length === 0) {
-		leaderboardPressed = false;
 		newGameBtn.mousePressed(newGame);
 	}
 
@@ -140,9 +143,10 @@ function nameOnscreen() {
 }
 
 function draw() {
+	// todo disable buttons when they cannot be clicked
 	background(0);
 
-	if (!newGameStarted) {
+	if (showTitleScreen) {
 		firstScreen();
 	}
 
@@ -172,25 +176,23 @@ function draw() {
 
 // first screen
 function firstScreen() {
-	if (!leaderboardPressed) {
-		fill('#fabc60');
-		textFont(myFont);
-		textSize(60);
-		const title = 'The bubble game';
-		text(title, 80, 150);
+	fill('#fabc60');
+	textFont(myFont);
+	textSize(60);
+	const title = 'The bubble game';
+	text(title, 80, 150);
 
-		fill('#3a9679');
-		textSize(20);
-		const author = 'by paja jureckova';
-		text(author, 365, 190);
+	fill('#3a9679');
+	textSize(20);
+	const author = 'by paja jureckova';
+	text(author, 365, 190);
 
-		fill('#f9f9f9');
-		textSize(20);
-		const rules = 'Click on a bubble to make it disappear. \n Make sure all the bubbles are gone \n before the time runs out.';
-		text(rules, 80, 250);
+	fill('#f9f9f9');
+	textSize(20);
+	const rules = 'Click on a bubble to make it disappear. \n Make sure all the bubbles are gone \n before the time runs out.';
+	text(rules, 80, 250);
 
-		nameOnscreen();
-	}
+	nameOnscreen();
 }
 
 // time
@@ -209,7 +211,7 @@ function timerOnScreen() {
 
 // concerning bubbles
 function newGame() {
-	newGameStarted = true;
+	showTitleScreen = false;
 	isGamePlaying = true;
 	isGameOver = false;
 	leaderboardPressed = false;
@@ -273,6 +275,7 @@ function nextlevel() {
 
 // the end
 function gameOverScreen() {
+	// todo show score of player
 	timeCounter = '';
 	isGameOver = true;
 	let gameOverText = 'Game Over';
@@ -290,23 +293,21 @@ function gameOverScreen() {
 }
 
 function leaderboardScreen() {
-	if(!isGamePlaying) {
-		leaderboardPressed = true;
-		let leaderboardText = 'Leaderboard'
-		fill('#3a9679');
-		textFont(myFont);
-		textSize(60);
-		text(leaderboardText, 120, 150);
-		fill(255, 0, 0);
-		textFont(myFont);
-		textSize(60);
-		for (let i = 0; i < nameArray.length; i++) {
-			let size = 15;
-			let yDir = 200 + size * i;
-			fill('#fff');
-			textSize(size);
-			text(nameArray[i], 120, yDir);
-		}
+	leaderboardPressed = true;
+	let leaderboardText = 'Leaderboard'
+	fill('#3a9679');
+	textFont(myFont);
+	textSize(60);
+	text(leaderboardText, 120, 150);
+	fill(255, 0, 0);
+	textFont(myFont);
+	textSize(60);
+	for (let i = 0; i < nameArray.length; i++) {
+		let size = 15;
+		let yDir = 200 + size * i;
+		fill('#fff');
+		textSize(size);
+		text(nameArray[i], 120, yDir);
 	}
 }
 
