@@ -5,7 +5,7 @@ The player has to click on bubbles to make them disapper before the time
 runs out. While the levels are progressing more bubbles are appearing
 and they are moving faster.
 
-Leaderboard feature is also implemented using firebase storage.
+Leaderboard list is also implemented using firebase storage.
 
 ## Overview
 
